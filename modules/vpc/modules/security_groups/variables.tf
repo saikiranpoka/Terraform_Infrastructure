@@ -1,33 +1,40 @@
 variable "vpc_id" {
-  description = "The ID of the VPC."
+  description = "VPC ID"
   type        = string
 }
-variable "environment" {
-  description = "The environment for the VPC (e.g., dev, staging, prod)."
-  type        = string
-}
+
 variable "security_groups" {
-  description = "The security groups to create."
-  type        = map(object({
+  description = "Security groups to create"
+
+  type = map(object({
     description = string
-    tags        = optional(map(string),{})
-    }))
-}    
-variable 'security_group_rules' {
-  description = "The security group rules to create."
-  type        = map(object({
-    direction                = string
-    source_security_group_id   = optional(string,"")
-    target_security_group_id   = string
-    protocol                 = string
-    from_port                = number
-    to_port                  = number
+
+    ingress_rules = optional(list(object({
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    })), [])
+
+    egress_rules = optional(list(object({
+      from_port   = number
+      to_port     = number
+      protocol    = string
+      cidr_blocks = list(string)
+    })), [])
+
+    tags = optional(map(string), {})
   }))
-    default = {}
 }
+
+variable "environment" {
+  description = "Environment name"
+  type        = string
+}
+
 variable "tags" {
-  description = "A map of tags to assign to the security groups."
+  description = "Common tags"
   type        = map(string)
   default     = {}
-}    
+}  
     

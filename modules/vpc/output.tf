@@ -1,13 +1,15 @@
-output "vpc_id" {
-  description = "The ID of the VPC." 
-  value = aws_vpc.vpc.id
-  type  = string
+output "peering_id" {
+  value = aws_vpc_peering_connection.this.id
 }
-output "vpc_cidr" {
-  value = aws_vpc.vpc.cidr_block
-  description = "The CIDR block of the VPC."
+
+output "peering_status" {
+  value = aws_vpc_peering_connection.this.accept_status
 }
-output "vpc_arn" {
-  description = "The ARN of the VPC."  
-  value = aws_vpc.vpc.arn
+
+output "requester_vpc_id" {
+  value = aws_vpc_peering_connection.this.vpc_id
+}
+
+output "accepter_vpc_id" {
+  value = aws_vpc_peering_connection.this.peer_vpc_id
 }

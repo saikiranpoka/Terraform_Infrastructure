@@ -6,11 +6,11 @@ variable "service_name" {
   description = "The name of the AWS service for the VPC endpoint (e.g., com.amazonaws.us-east-1.s3)."
   type        = string
 }
-variable "endpoint_type" {
+variable "vpc_endpoint_type" {
   description = "The type of the VPC endpoint (Interface or Gateway)."
   type        = string
   validation {
-    condition     = contains(["Interface", "Gateway"], var.endpoint_type)
+    condition     = contains(["Interface", "Gateway"], var.vpc_endpoint_type)
     error_message = "The endpoint_type must be either 'Interface' or 'Gateway'."
   }
 }
